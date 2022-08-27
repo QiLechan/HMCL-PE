@@ -63,10 +63,17 @@ public class InstallLauncherFile {
         /*
          *检查nide8auth.jar
          */
+        
         if (!new File(AppManifest.PLUGIN_DIR + "/login/nide8auth").exists() || !new File(AppManifest.PLUGIN_DIR + "/login/nide8auth/version").exists() || Integer.parseInt(Objects.requireNonNull(FileStringUtils.getStringFromFile(AppManifest.PLUGIN_DIR + "/login/nide8auth/version"))) < Integer.parseInt(Objects.requireNonNull(AssetsUtils.readAssetsTxt(activity, "plugin/login/nide8auth/version")))) {
             FileUtils.deleteDirectory(AppManifest.PLUGIN_DIR + "/login/nide8auth");
             AssetsUtils.getInstance(activity).setProgressCallback(progressCallback).copyOnMainThread("plugin/login/nide8auth",AppManifest.PLUGIN_DIR + "/login/nide8auth");
         }
+        /*
+         *复制游戏资源文件
+         */
+        AssetsUtils.getInstance(activity).copyOnMainThread("game_resources_directory", AppManifest.INNER_GAME_DIR);/*+"/versions/1.12.2"*/
+        
+        /*
         /*
          *检查布局方案，如果没有，就生产一个默认布局
          */
